@@ -16,6 +16,8 @@
 
 import { Room } from "matrix-js-sdk/src/models/room";
 
+//import { MatrixClientPeg } from "../MatrixClientPeg";
+
 // Populate this file with the details of your customisations when copying it.
 
 /**
@@ -30,7 +32,13 @@ import { Room } from "matrix-js-sdk/src/models/room";
  * @returns {boolean} True if the room should be visible, false otherwise.
  */
 function isRoomVisible(room: Room): boolean {
-    return true;
+    //var client = MatrixClientPeg.get();
+    //rooms = client.getRooms()
+    if (room.isSpaceRoom()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // This interface summarises all available customisation points and also marks
