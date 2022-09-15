@@ -34,11 +34,12 @@ import { Room } from "matrix-js-sdk/src/models/room";
 function isRoomVisible(room: Room): boolean {
     //var client = MatrixClientPeg.get();
     //rooms = client.getRooms()
-    if (room.isSpaceRoom()) {
-        return true;
-    } else {
-        return false;
-    }
+    //if (room.isSpaceRoom()) {
+        //return true;
+    //} else {
+    console.log("foo bar baz banana");
+    return false;
+    //}
 }
 
 // This interface summarises all available customisation points and also marks
