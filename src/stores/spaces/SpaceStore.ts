@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import { SpaceListCustomisations } from "../../customisations/SpaceList"
+
 import { ListIteratee, Many, sortBy } from "lodash";
 import { EventType, RoomType } from "matrix-js-sdk/src/@types/event";
 import { Room, RoomEvent } from "matrix-js-sdk/src/models/room";
@@ -66,6 +68,8 @@ import { SwitchSpacePayload } from "../../dispatcher/payloads/SwitchSpacePayload
 import { AfterLeaveRoomPayload } from "../../dispatcher/payloads/AfterLeaveRoomPayload";
 
 interface IState { }
+
+const isVisibleFn = SpaceListCustomisations.isSpaceVisible;
 
 const ACTIVE_SPACE_LS_KEY = "mx_active_space";
 
@@ -462,16 +466,10 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
         }
     };
 
-    private findRootSpaces = (joinedSpacesP: Room[]): Room[] => {
+    private findRootSpaces = (joinedSpacesUnfiltered: Room[]): Room[] => {
 
         // exclude hidden spaces
-        var joinedSpaces = joinedSpacesP.filter(space => {
-                if (space.name === "SRCF") {
-                    return false;
-                } else {
-                    return true;
-                }
-            });
+        var joinedSpaces = joinedSpacesUnfiltered.filter(isVisibleFn);
 
         // exclude invited spaces from unseenChildren as they will be forcibly shown at the top level of the treeview
         const unseenSpaces = new Set(joinedSpaces);
