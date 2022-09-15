@@ -37,8 +37,9 @@ function isRoomVisible(room: Room): boolean {
     //if (room.isSpaceRoom()) {
         //return true;
     //} else {
-    console.log("foo bar baz banana");
-    return false;
+    //console.log("foo bar baz banana");
+    //return false;
+    return true;
     //}
 }
 

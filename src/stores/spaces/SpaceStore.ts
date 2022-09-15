@@ -462,7 +462,17 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
         }
     };
 
-    private findRootSpaces = (joinedSpaces: Room[]): Room[] => {
+    private findRootSpaces = (joinedSpacesP: Room[]): Room[] => {
+
+        // exclude hidden spaces
+        var joinedSpaces = joinedSpacesP.filter(space => {
+                if (space.name === "SRCF") {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
         // exclude invited spaces from unseenChildren as they will be forcibly shown at the top level of the treeview
         const unseenSpaces = new Set(joinedSpaces);
 
